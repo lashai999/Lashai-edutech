@@ -1,34 +1,31 @@
-// === Supabase Connection ===
 const SUPABASE_URL = "https://qsfnaernfqcwhxionpyq.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzZm5hZXJuZnFjd2h4aW9ucHlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyODU1MjMsImV4cCI6MjA2Njg2MTUyM30.sdBsJJDzDQ7ffEpwmLFhSMeG4WaFRVTdexG-sUwCvv0";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// === Login Function ===
-async function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    if (!email || !password) {
-        alert("Please enter email & password");
-        return;
-    }
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    document.getElementById('error-message').textContent = error.message;
+  } else {
+    window.location.href = "home.html";
+  }
+});
 
-    if (error) {
-        alert("Login failed: " + error.message);
-    } else {
-        alert("Login successful!");
-        document.getElementById('login-page').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        loadDashboard();
-    }
-}
+// Redirect to signup
+document.getElementById('signup-link').addEventListener('click', async () => {
+  const email = prompt("Enter your email to sign up:");
+  const password = prompt("Enter a password:");
+  if (!email || !password) return;
 
-// === Load Dashboard Content ===
-function loadDashboard() {
-    document.getElementById('dashboard-content').innerHTML = `
-        <h2>Welcome to LASH.AI Edutech</h2>
-        <p>Your personalized learning journey starts here.</p>
-    `;
-}
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Signup successful! Please check your email to verify.");
+  }
+});
