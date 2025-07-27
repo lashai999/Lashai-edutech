@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lash.AI Edutech</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="login-page">
+    <h1>Lash.AI Edutech</h1>
+    <input type="email" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button id="login-btn">Login</button>
+    <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none;">
+    <header>
+      <h2>Welcome to Lash.AI</h2>
+    </header>
+    <nav>
+      <button id="home-tab">Home</button>
+      <button id="books-tab">Books</button>
+      <button id="courses-tab">Courses</button>
+      <button id="games-tab">Games</button>
+      <button id="profile-tab">Profile</button>
+    </nav>
+    <main id="content">
+      <p>Loading content...</p>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
